@@ -216,3 +216,93 @@ Use the Singleton Pattern in Flutter when:
 - You want to maintain global state or configuration settings.
 
 Singletons are often used for managing things like database connections, app configuration, authentication services, and state management in Flutter applications. However, it's important to use them judiciously, as they introduce global state, which should be managed carefully.
+
+
+# Ticker in Flutter
+
+In Flutter, a **ticker** refers to a mechanism for scheduling recurring tasks at specific intervals. It is often used in the context of animations and frame updates to create smooth and responsive user interfaces. Tickers are closely associated with the `Ticker` class and are used to drive animations in a Flutter application.
+
+## What Tickers Do
+
+1. **Animation Synchronization**: Tickers are used to synchronize animations with the screen's refresh rate. They ensure that animations run smoothly, consistently, and at the desired frame rate, typically 60 frames per second (FPS).
+
+2. **Frame Management**: Tickers help manage frames in a Flutter application. They determine when to update the visual elements on the screen, ensuring that changes are displayed at the right time.
+
+3. **Continuous Updates**: Tickers allow you to continuously update the state of an animation or any other visual element in response to changes in your application.
+
+## TickerProvider and TickerProviderStateMixin
+
+To work with tickers in Flutter, you typically need to use classes that implement the `TickerProvider` interface or mix in the `TickerProviderStateMixin`. These classes provide tickers for animations and manage their lifecycles.
+
+- **`TickerProvider`**: This is an interface that defines a single method `createTicker` used to create a `Ticker` object.
+
+- **`TickerProviderStateMixin`**: This mixin provides the `vsync` property and is often used in conjunction with `SingleTickerProviderStateMixin` or `TickerProviderStateMixin` to create and manage tickers.
+
+## Example
+
+Here's an example of how you can use a ticker in Flutter to animate a widget:
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyAnimationDemo(),
+    );
+  }
+}
+
+class MyAnimationDemo extends StatefulWidget {
+  @override
+  _MyAnimationDemoState createState() => _MyAnimationDemoState();
+}
+
+class _MyAnimationDemoState extends State<MyAnimationDemo>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: Duration(seconds: 2),
+      vsync: this, // Use the ticker provided by this mixin
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Ticker Animation Demo'),
+      ),
+      body: Center(
+        child: ScaleTransition(
+          scale: _controller.drive(
+            CurveTween(curve: Curves.easeInOut),
+          ),
+          child: FlutterLogo(size: 200),
+        ),
+      ),
+    );
+  }
+}
+```
+
+In this example:
+
+- We create a `TickerController` using the `vsync` property to specify the ticker provider (in this case, `SingleTickerProviderStateMixin`).
+- We use the `repeat` method to continuously animate the Flutter logo with a scaling effect.
+- The animation is controlled by the `_controller` and is attached to a `ScaleTransition` widget to scale the Flutter logo.
+
+This example demonstrates how tickers and animations work together to create dynamic and responsive user interfaces in Flutter.
