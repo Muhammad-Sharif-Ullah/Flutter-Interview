@@ -1196,3 +1196,72 @@ Test-Driven Development (TDD) is a systematic approach to software development t
 - **Risk Tolerance**: Waterfall may be less risky for projects with well-understood requirements, whereas Agile can mitigate risks associated with changing or uncertain requirements.
 
 Ultimately, the choice between Agile and Waterfall depends on the specific project's characteristics, objectives, and constraints. Some projects may benefit from a hybrid approach that combines elements of both methodologies to best meet the project's needs.
+
+
+
+# Difference Between Function and Method in Dart
+
+In Dart, the terms **function** and **method** refer to two distinct types of executable code, each with its own characteristics and use cases. Let's explore the differences between functions and methods in Dart:
+
+## Function:
+
+- **Scope**: A **function** in Dart is a self-contained block of code that can be defined globally, outside of any class. Functions are accessible from anywhere within the same Dart file.
+
+- **Invocation**: Functions are invoked by their name, followed by parentheses, e.g., `functionName()`.
+
+- **Parameters**: Dart functions can accept parameters, which are values passed into the function when it's called. These parameters are accessible within the function's scope.
+
+- **Return Value**: Functions can return a value to the caller using the `return` keyword. The return type is specified when defining the function.
+
+- **Example**:
+
+```dart
+int add(int a, int b) {
+  return a + b;
+}
+
+void main() {
+  int result = add(2, 3);
+  print(result); // Output: 5
+}
+```
+
+## Method:
+
+- **Scope**: A **method** in Dart is a function that is associated with a class. It is defined within the context of the class and operates on the data (attributes) of that class.
+
+- **Invocation**: Methods are invoked on instances (objects) of a class. They are called using the object's name followed by a dot and the method name, e.g., `objectName.methodName()`.
+
+- **Parameters**: Like functions, methods can also accept parameters, but they typically operate on the object's attributes or data.
+
+- **Return Value**: Methods can return a value just like functions, but they often work with the object's state and may modify it.
+
+- **Example**:
+
+```dart
+class Calculator {
+  int add(int a, int b) {
+    return a + b;
+  }
+}
+
+void main() {
+  Calculator calc = Calculator();
+  int result = calc.add(2, 3); // Invoking the method on an object
+  print(result); // Output: 5
+}
+```
+
+## Summary:
+
+In Dart, the primary differences between functions and methods are as follows:
+
+- **Scope**: Functions are defined globally, while methods are associated with classes and operate on instances of those classes.
+
+- **Invocation**: Functions are called by their name, whereas methods are called on objects using the object's name.
+
+- **Parameters**: Both functions and methods can accept parameters, but methods often work with the attributes or data of the class they belong to.
+
+- **Return Value**: Both functions and methods can return values, but methods often interact with and modify the state of the object they are associated with.
+
+The choice between using a function or a method in Dart depends on your program's design and whether you are working with object-oriented programming constructs. Functions are typically used for standalone operations, while methods are employed when dealing with class-specific behavior and data.
